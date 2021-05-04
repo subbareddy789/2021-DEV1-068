@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 public class TicTacToeGame {
 
-    public static String[][] board = new String[3][3];
+    private static String[][] board = new String[3][3];
 
     public static void main(String[] args) {
         TicTacToeGame game = new TicTacToeGame();
@@ -25,7 +25,12 @@ public class TicTacToeGame {
         while (counter < 9) {
             System.out.println("Please reserve the position - Player :"+player);
             String input = in.next();
+            if (input.length() != 1 || !Character.isDigit(input.charAt(0)) || Integer.valueOf(input) < 1) {
+                System.out.println("Please enter only digit between 1 to 9");
+                continue;
+            }
             if (!reservePosition(Integer.valueOf(input),player )) {
+                System.out.println("Given position already reserved! try again!");
                 continue;
             }
             if (counter > 3) {
@@ -35,10 +40,19 @@ public class TicTacToeGame {
             }
             player = player == "X" ? "O" : "X";
             counter++;
+            if(counter > 8){
+                return "Game was drawn";
+            }
         }
         return null;
     }
 
+
+    /**
+     * It will check the winner after 5th move onwards
+     * @param player
+     * @return true/false
+     */
     public boolean checkWinner(String player) {
         // Check all rows
         for (int i = 0; i < board.length; i++) {
@@ -70,16 +84,14 @@ public class TicTacToeGame {
         return false;
     }
 
-    public void populateNumbersInBoard(){
-        int counter = 0;
-        for(int i=0; i < board.length ; i++) {
-            for (int j = 0; j < board.length ; j++) {
-                board[i][j] = String.valueOf(++counter);
-            }
-        }
-        displayBoard();
-    }
 
+    /**
+     * It will first check whether the given position available or not
+     * will return True on successful reserve else false
+     * @param position
+     * @param c
+     * @return true/false
+     */
     public boolean reservePosition(int position, String c) {
         int i, j = 0;
         if (position < 4) {
@@ -100,6 +112,24 @@ public class TicTacToeGame {
         return false;
     }
 
+
+    /**
+     * Method to populate the numbers rather than a null objects in board
+     */
+    public void populateNumbersInBoard(){
+        int counter = 0;
+        for(int i=0; i < board.length ; i++) {
+            for (int j = 0; j < board.length ; j++) {
+                board[i][j] = String.valueOf(++counter);
+            }
+        }
+        displayBoard();
+    }
+
+
+    /**
+     * Method to display current board status
+     */
     public void displayBoard() {
         System.out.println(String.format("|---|---|---|\n"
                         + "| %s | %s | %s |\n"
