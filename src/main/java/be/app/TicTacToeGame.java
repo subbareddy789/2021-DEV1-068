@@ -16,6 +16,10 @@ public class TicTacToeGame {
         System.out.println(response);
     }
 
+    /**
+     * This is the starting point
+     * @return final response
+     */
     public  String startGame(){
         populateNumbersInBoard();
         Scanner in = new Scanner(System.in);
