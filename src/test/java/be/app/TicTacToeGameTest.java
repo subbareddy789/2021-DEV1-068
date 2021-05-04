@@ -34,4 +34,19 @@ public class TicTacToeGameTest {
         String response = ticTacToeGame.startGame();
         assertThat("Winner is :X").isEqualTo(response);
     }
+
+    @Test
+    public void secondPlayerOwnTheGame(){
+        String data = "1"+ System.getProperty("line.separator")
+                +"5"+ System.getProperty("line.separator")
+                +"9"+ System.getProperty("line.separator")
+                +"2"+ System.getProperty("line.separator")
+                +"6"+ System.getProperty("line.separator")
+                +"8"+ System.getProperty("line.separator");
+
+        System.setIn(new ByteArrayInputStream(data.getBytes()));
+
+        String response = ticTacToeGame.startGame();
+        assertThat("Winner is :O").isEqualTo(response);
+    }
 }
